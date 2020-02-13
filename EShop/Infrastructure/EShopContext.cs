@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EShop.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EShop.Infrastructure
 {
@@ -8,5 +9,9 @@ namespace EShop.Infrastructure
         {
 
         }
+
+        public DbSet<Page> Pages { get; set; }
     }
+
+
 }
