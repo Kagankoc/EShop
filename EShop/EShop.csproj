@@ -7,9 +7,20 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200212093508_Initial.cs" />
     <Compile Remove="Migrations\20200212093508_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200214134855_CategoryAdded.cs" />
+    <Compile Remove="Migrations\20200214134855_CategoryAdded.Designer.cs" />
+    <Compile Remove="Migrations\20200214135309_CategoryAdded.cs" />
+    <Compile Remove="Migrations\20200214135309_CategoryAdded.Designer.cs" />
+    <Compile Remove="Migrations\20200214140401_CategoryAdded.cs" />
+    <Compile Remove="Migrations\20200214140401_CategoryAdded.Designer.cs" />
+    <Compile Remove="Migrations\20200214155705_ProductAdded.cs" />
+    <Compile Remove="Migrations\20200214155705_ProductAdded.Designer.cs" />
+    <Compile Remove="Migrations\20200214155905_ProductAdded.cs" />
+    <Compile Remove="Migrations\20200214155905_ProductAdded.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -25,6 +36,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="wwwroot\media\products\" />
   </ItemGroup>
 
 

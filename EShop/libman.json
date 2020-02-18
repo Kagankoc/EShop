@@ -2634,5 +2634,10 @@
         "skins/moono-lisa/icons_hidpi.png"
       ]
     }
-  ]
+  ,
+{
+  "library": "jqueryui@1.12.1",
+  "destination": "wwwroot/lib/jqueryui/"
+}
+]
 }
