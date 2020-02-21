@@ -1,6 +1,8 @@
 using EShop.Infrastructure;
+using EShop.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,10 +23,27 @@ namespace EShop
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMemoryCache();
+            services.AddSession(options =>
+            {
+                // options.IdleTimeout=TimeSpan.FromDays(2);
+            });
+            services.AddRouting(options => options.LowercaseUrls = true);
             services.AddControllersWithViews();
 
             services.AddDbContext<EShopContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("EShopContext")));
+
+            services.AddIdentity<AppUser, IdentityRole>(options =>
+                {
+                    options.Password.RequiredLength = 4;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireDigit = false;
+
+                }).AddEntityFrameworkStores<EShopContext>()
+                .AddDefaultTokenProviders();
 
 
         }
@@ -47,14 +66,34 @@ namespace EShop
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    "pages",
+                    "{slug?}",
+                    defaults: new { controller = "Pages", action = "Page" }
+                    );
+
+                endpoints.MapControllerRoute(
+                     "products",
+                     "products/{categorySlug}",
+                     defaults: new { controller = "Products", action = "ProductsByCategory" }
+                    );
+
+                endpoints.MapControllerRoute(
                     name: "areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "Admin",
+                    pattern: "{area:exists}/{controller=Pages}/{action=Index}");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
